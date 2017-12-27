@@ -8,7 +8,7 @@ class User(db.Model):
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.Enum('admin', 'member'), default='member')
     time_created = db.Column(db.DateTime, nullable=False, default=db.func.now())
     time_updated = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
@@ -19,6 +19,7 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
+    # posts = db.relationship('Post', secondary='post_category', backref='categories', lazy='dynamic')
 
 
 class Post(db.Model):
