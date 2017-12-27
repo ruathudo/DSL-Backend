@@ -28,5 +28,7 @@ app_config = {
 }
 
 error_codes = {
-    409: 'DUPLICATED'
+    409: 'DUPLICATED',
+    404: 'NOT_FOUND',
+    401: 'UNAUTHORIZED',
 }

@@ -9,17 +9,8 @@ from app.utils import format_schema_errors
 
 class User(object):
 
-    def __init__(self):
-        pass
-
-    def check_exist(self, username):
-        user = UserModel.query.filter_by(username=username).one_or_none()
-
-        if not user:
-            return False
-        return True
-
-    def register(self, data):
+    @staticmethod
+    def register(data):
         # load data to validate
         user_schema = UserSchema()
         new_user, errs = user_schema.load(data)
@@ -28,8 +19,8 @@ class User(object):
             return None, format_schema_errors(errs)
 
         # check duplicated user
-        is_exist = self.check_exist(data['username'])
-        if is_exist:
+        user = UserModel.query.filter_by(username=data["username"]).one_or_none()
+        if user:
             return None, ec[409]
 
         # generate hash password
@@ -45,5 +36,20 @@ class User(object):
 
         return user_data, errs
 
-    def login(self, username, password):
-        return None
+    @staticmethod
+    def login(username, password):
+        # check user
+        user = UserModel.query.filter_by(username=username).one_or_none()
+
+        if not user:
+            return None, ec[404]
+        # check password
+        check_password = check_password_hash(user.password, password)
+
+        if not check_password:
+            return None, ec[401]
+        # serialize data
+        user_schema = UserSchema()
+        user_data, errs = user_schema.dump(user)
+
+        return user_data, None

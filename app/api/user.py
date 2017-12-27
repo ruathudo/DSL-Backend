@@ -6,11 +6,9 @@ from app.core.user import User
 @api.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    user = User()
-    result, error = user.register(data)
+    result, error = User.register(data)
 
     if error:
-        print(error)
         return jsonify({'success': False, 'error': error})
 
     return jsonify({'success': True, 'data': result})
@@ -18,4 +16,10 @@ def register():
 
 @api.route('/login', methods=['POST'])
 def login():
-    pass
+    data = request.get_json()
+    result, error = User.login(data["username"], data["password"])
+
+    if error:
+        return jsonify({'success': False, 'error': error})
+
+    return jsonify({'success': True, 'data': result})

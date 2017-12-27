@@ -12,3 +12,15 @@ class UserSchema(ma.ModelSchema):
 
     class Meta:
         model = User
+
+
+class PostSchema(ma.ModelSchema):
+
+    class Meta:
+        model = Post
+
+
+class CategorySchema(ma.ModelSchema):
+
+    class Meta:
+        model = Category
