@@ -27,6 +27,6 @@ app_config = {
     'production': ProductionConfig
 }
 
-errors = {
-
+error_codes = {
+    409: 'DUPLICATED'
 }
