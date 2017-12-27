@@ -21,3 +21,4 @@ from app import models
 # register blueprint
 from app.api import api as api_blueprint
 app.register_blueprint(api_blueprint)
+

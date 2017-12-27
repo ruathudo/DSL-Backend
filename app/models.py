@@ -8,7 +8,8 @@ class User(db.Model):
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    role = db.Column(db.Enum('admin', 'member'))
     time_created = db.Column(db.DateTime, nullable=False, default=db.func.now())
     time_updated = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
 
@@ -18,7 +19,7 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
-    posts = db.relationship('post', secondary='post_category', backref='categories', lazy='dynamic')
+    # posts = db.relationship('Post', secondary='post_category', backref='categories', lazy='dynamic')
 
 
 class Post(db.Model):
@@ -31,7 +32,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     content_md = db.Column(db.Text, nullable=False)
     status = db.Column(db.Enum('public', 'private', 'draft', 'trash'))
-    categories = db.relationship('category', secondary='post_category', backref='posts', lazy='dynamic')
+    categories = db.relationship('Category', secondary='post_category', backref='posts', lazy='dynamic')
     time_created = db.Column(db.DateTime, nullable=False, default=db.func.now())
     time_updated = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
 
