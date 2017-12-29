@@ -11,6 +11,10 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_object(app_config[config_name])
 app.config.from_pyfile('config.py')
 
+# set google cloud credentials to env
+cloud_credentials = app.instance_path + '/cloud_credentials.json'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cloud_credentials
+
 # init 3rd party
 db = SQLAlchemy(app)
 ma = Marshmallow(app)

@@ -3,6 +3,11 @@ class Config(object):
     Common configurations
     """
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOAD_FOLDER = '/tmp/'
+    STORAGE_BUCKET = 'cdn.datasciencelog.com'
+    STORAGE_URL = 'http://cdn.datasciencelog.com/uploads/'
+    ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
+    MAX_CONTENT_LENGTH = 50 * 1024 * 1024
     # Put any configurations here that are common across all environments
 
 
@@ -11,7 +16,7 @@ class DevelopmentConfig(Config):
     Development configurations
     """
     DEBUG = True
-    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_ECHO = True
 
 
 class ProductionConfig(Config):
@@ -28,10 +33,12 @@ app_config = {
 }
 
 error_codes = {
+    400: 'BAD_REQUEST',
     409: 'DUPLICATED',
     404: 'NOT_FOUND',
     401: 'UNAUTHORIZED',
     403: 'FORBIDDEN',
+    422: 'INVALID_INPUT',
     499: 'TOKEN_REQUIRED',
     498: 'INVALID_TOKEN'
 }
