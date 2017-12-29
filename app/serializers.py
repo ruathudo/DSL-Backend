@@ -15,12 +15,17 @@ class UserSchema(ma.ModelSchema):
 
 
 class PostSchema(ma.ModelSchema):
+    categories = fields.Nested('CategorySchema', many=True, dump_only=True)
+    slug = fields.Str(required=False)
 
     class Meta:
         model = Post
+        exclude = ['categories']
 
 
 class CategorySchema(ma.ModelSchema):
+    name = fields.Str(validate.Length(max=100, error='INVALID_CATEGORY'))
 
     class Meta:
         model = Category
+        exclude = ['posts']

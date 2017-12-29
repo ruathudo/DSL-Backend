@@ -5,9 +5,9 @@ class User(db.Model):
     __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(16), nullable=False)
-    last_name = db.Column(db.String(16), nullable=False)
-    username = db.Column(db.String(32), unique=True, nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.Enum('admin', 'member'), default='member')
     time_created = db.Column(db.DateTime, nullable=False, default=db.func.now())
@@ -18,7 +18,8 @@ class Category(db.Model):
     __tablename__ = "category"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(32), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    slug = db.Column(db.String(100), unique=True, nullable=False)
     # posts = db.relationship('Post', secondary='post_category', backref='categories', lazy='dynamic')
 
 
@@ -50,7 +51,7 @@ class File(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'), nullable=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('file.id', ondelete='SET NULL'), nullable=True)
     name = db.Column(db.String(250), nullable=False)
-    type = db.Column(db.Enum('folder', 'photo', 'video', 'audio', 'other'))
+    type = db.Column(db.Enum('folder', 'photo', 'video', 'audio', 'pdf', 'txt', 'other'))
     size = db.Column(db.Float, default=0)
     status = db.Column(db.Enum('pending', 'success', 'error', 'trash'))
     time_created = db.Column(db.DateTime, nullable=False, default=db.func.now())

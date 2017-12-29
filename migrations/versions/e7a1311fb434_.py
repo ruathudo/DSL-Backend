@@ -38,7 +38,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=250), nullable=False),
-    sa.Column('slug', sa.String(length=250), nullable=False),
+    sa.Column('slug', sa.String(length=250), nullable=True),
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('content_md', sa.Text(), nullable=False),
     sa.Column('status', sa.Enum('public', 'private', 'draft', 'trash'), nullable=True),

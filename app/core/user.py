@@ -31,7 +31,7 @@ def register(data):
     # serialize data
     user_data, errs = user_schema.dump(new_user)
 
-    return user_data, errs
+    return user_data, format_schema_errors(errs)
 
 
 def login(username, password):
