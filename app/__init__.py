@@ -11,7 +11,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_object(app_config[config_name])
 app.config.from_pyfile('config.py')
 
-# set google cloud credentials to env
+# set google cloud credentials variable to environment
 cloud_credentials = app.instance_path + '/cloud_credentials.json'
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cloud_credentials
 
@@ -25,4 +25,3 @@ from app import models
 # register blueprint
 from app.api import api as api_blueprint
 app.register_blueprint(api_blueprint)
-

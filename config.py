@@ -5,9 +5,11 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = '/tmp/'
     STORAGE_BUCKET = 'cdn.datasciencelog.com'
-    STORAGE_URL = 'http://cdn.datasciencelog.com/uploads/'
+    STORAGE_URL = 'http://cdn.datasciencelog.com/'
     ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
     MAX_CONTENT_LENGTH = 50 * 1024 * 1024
+    IMAGE_SIZES = [1200, 800, 400, 100]
+
     # Put any configurations here that are common across all environments
 
 
@@ -40,5 +42,6 @@ error_codes = {
     403: 'FORBIDDEN',
     422: 'INVALID_INPUT',
     499: 'TOKEN_REQUIRED',
-    498: 'INVALID_TOKEN'
+    498: 'INVALID_TOKEN',
+    500: 'UNEXPECTED_ERROR'
 }
